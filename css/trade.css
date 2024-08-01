@@ -1,0 +1,38 @@
+.trading-container {
+    background-color: #1d1d1d;
+    padding: 20px;
+    border-radius: 5px;
+    /* max-width: 500px; */
+    width: 100%;
+    margin: auto;
+}
+
+#trading-container table {
+    width: 100%;
+    border-collapse: collapse;
+    display: flex;
+    flex-direction: row;
+}
+
+#trading-container table tr {
+    display: flex;
+    flex-direction: row;
+}
+
+.tradetd {
+    display: inline-block;
+    /* flex-direction: row; */
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #363636;
+
+}
+
+
+.gold-container {
+    margin-bottom: 20px;
+}
+
+#resourceList {
+    width: 300px;
+}

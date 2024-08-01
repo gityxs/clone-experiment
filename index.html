@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Clone Experiment</title>
+	<link href="https://fonts.googleapis.com/css2?family=PT+Sans&display=swap" rel="stylesheet">
+	<link rel="icon" type="image/x-icon" href="favicon.ico">
+
+	<link rel="stylesheet" href="css/master.css">
+</head>
+
+<body>
+	<canvas id="fullscreen"></canvas>
+	<!-- <button id="darkModeToggle">Light Mode</button> -->
+	<button id="optionsButton">Options</button>
+
+	<div id="optionsMenu" style="display: none;">
+		<label for="musicVolume">Music Volume:</label>
+		<input type="range" id="musicVolume" min="0" max="1" step="0.01">
+		<br>
+		<label for="sfxVolume">SFX Volume:</label>
+		<input type="range" id="sfxVolume" min="0" max="1" step="0.01">
+		<br>
+
+		<!-- <input type="checkbox" name="petals" id="petalsOption" checked> -->
+		<!-- <label for="petalsOption">Petals</label> -->
+		<br>
+
+		<button id="saveButton">Save</button>
+		<button id="deleteSaveButton">Delete Save Data</button>
+		<img src="favicon.ico" class="tooltip" tooltipdesc="Thanks for playing Clone Experiment!"
+			tooltipcost="Made by Epic_Doughnut"
+			style="width:64px; height:64px; position:absolute; right: 10px; bottom: 10px"
+			alt="Thanks for playing Clone Experiment! Made by Epic_Doughnut">
+		<br>
+		<a href="https://forms.gle/k4emTpjeN7ooM1mJ9" style="color:white">Feedback</a>
+	</div>
+
+	<div id="page-transition-overlay"></div>
+
+
+	<!-- For cutscenes -->
+	<div id="overlay" class="startVisible">
+		<img src="favicon.ico" id="logo" alt="Clone Experiment Logo">
+		<p id="overlay-text"></p>
+		<p id="loadingText">Clone Experiment</p>
+		<div id="isekaiButtons"></div>
+		<button id="overlay-button">Continue</button>
+		<button id="overlay-back-button">Go Back</button>
+
+	</div>
+
+	<!-- SIDEBAR -->
+
+	<div id="sidebar">
+		<table>
+			<tr>
+				<td>
+					<h3 id='resourcesWords' class='startVisible'>Resources</h3>
+				</td>
+				<td>
+					<h3 class="startVisible">Quantity/Max</h3>
+				</td>
+				<td>
+					<h3 class="startVisible">Rate</h3>
+				</td>
+			</tr>
+		</table>
+		<!-- <input type="checkbox" name="groupCheck" id="groupCheck">
+			<label for="groupCheck">Display Groups</label> -->
+		<hr>
+		<div id="resources">
+			<!-- Resource values here -->
+		</div>
+
+		<!-- <div id="tools" class='craftRocks' style="display: none;">
+		<hr>
+		<h4>Tools:</h4>
+		<ul id="tools-list">
+		</ul>
+		</div> -->
+
+		<div id="buildingDisplay" class="buildings hidden">
+			<hr>
+			<h3>Your City</h3>
+			<p id="buildingList"></p>
+		</div>
+	</div>
+
+	<!-- Tab content -->
+	<div class="tab-content" id="main">
+		<div style="display: flex; flex-direction: column;">
+			<h2 class="startVisible" id="message"> You find yourself
+				<span id='alone' class="tooltip" tooltipcost="Click to clone yourself"
+					tooltipdesc="You feel peckish for some seafood">alone</span>
+				in a forest
+			</h2>
+			<div id='emojiGatherDisplay'>𓀟</div>
+			<div id="emojiDisplay">𓆮 </div>
+
+
+
+			<div id="levelUpMessage" class="hidden">
+				<p>Level up!</p>
+			</div>
+		</div>
+		<button class="eatFish hidden" id="eatFish">Eat fish</button>
+		<!-- <button onclick="fadeToBlack()">blackout</button> -->
+		<button class='hidden prestige' id='prestige'>Isekai</button>
+
+		<!-- PRODUCTION TAB (1) -->
+		<div id="productionTab" class="content active" data-target='productionTab'></div>
+
+
+		<!-- EXPERIMENT TAB (2) -->
+		<div id="experimentTab" class="experiment-tab content" data-target='experimentTab'>
+			<!-- <input type="checkbox" name="autoCraft" id="autoCraftCheckbox"> -->
+			<!-- <label for="autoCraftCheckbox">Auto Craft</label> -->
+
+			<div class="button-columns visible active">
+				<!-- This is where you will append the columns of buttons -->
+			</div>
+
+
+			<div class="rows visible active craftRocks rope" id="craftedResourceButtons">
+
+			</div>
+		</div>
+
+
+		<!-- PONDER TAB (3) -->
+		<div id='ponderTab' class='ponder-tab content' data-target='ponderTab'>
+		</div>
+
+
+		<!-- JOBS TAB (4) -->
+		<div id='jobsTab' class='jobs-tab content' data-target='jobsTab'>
+			<p id="jobs-total">Assigned Clones:</p>
+			<!-- <button id="clearJobAssignments">Clear Assignments</button> -->
+
+			<canvas id="lineCanvas" style="position: absolute; top: 0; left: 0; z-index: -1;"></canvas>
+
+		</div>
+
+
+		<div id="skillsTab" class="skillsTab content" data-target="skillsTab">
+
+			<table id="skillsTable" class='dark-mode'>
+				<tr>
+					<td>
+						<h4 style='display: block;'>Your Skills:</h4>
+					</td>
+				</tr>
+			</table>
+		</div>
+
+		<div id="perksTab" class="perksTab content" data-target="perksTab">
+			<div id="tierOneContainer">
+				<button class="tierOneButton tooltip" id='LumberjackPerk' tooltipCost="Mutually Exclusive!"
+					tooltipDesc="+75% wood & sticks production">Lumberjack</button>
+				<button class="tierOneButton tooltip" id='MinerPerk' tooltipCost="Mutually Exclusive!"
+					tooltipDesc="+75% stone & ore production">Miner</button>
+				<button class="tierOneButton tooltip" id='BotanistPerk' tooltipCost="Mutually Exclusive!"
+					tooltipDesc="+75% vines & herbs & wheat production">Botanist</button>
+				<button class="tierOneButton tooltip" id='LeaderPerk' tooltipCost="Mutually Exclusive!"
+					tooltipDesc="+50% clones productivity">Leader</button>
+				<button class="tierOneButton tooltip" id='ArchitectPerk' tooltipCost="Mutually Exclusive!"
+					tooltipDesc="-25% building cost">Architect</button>
+			</div>
+
+
+		</div>
+
+		<div id='tradeTab' class="tradeTab content" data-target="tradeTab">
+			<div class="trading-container">
+				<div class="gold-container">
+					Gold: <span id="goldAmount">0</span> <!-- Sample initial value -->
+				</div>
+				<table>
+					<thead>
+						<tr>
+							<th>Resource</th>
+							<th>Price</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+					<tbody id="resourceList"></tbody>
+				</table>
+			</div>
+		</div>
+
+		<div id="factoryTab" class="factoryTab content" data-target="factoryTab">
+			<div id="factoryButtons" style="display: flex;flex-direction: row;"></div>
+			<div id="factories" style="display: flex; flex-direction: column;"></div>
+		</div>
+
+		<div id="combatTab" class="combatTab content" data-target="combatTab">
+			<table style="width: 100%;">
+				<tbody>
+					<tr>
+						<!-- <td>Troops: <span id="assignedTroops">18</span>/<span id="maxTroops">20</span></td> -->
+						<td id="combatLoot">Potential Loot:<br> <span id="lootList"></span></td>
+						<td class="tooltip" tooltipdesc="Might comes from violence, spears, and medicine">Your Might
+						</td>
+						<td>Chance to Win</td>
+						<td>Enemy Might</td>
+					</tr>
+					<tr>
+						<td rowspan="2">
+							<!-- <div id="troopAssignments">
+								<p>Spearmen: <span id="spearmenTroops">10</span></p>
+								<p>Archers: <span id="archerTroops">10</span></p>
+								<p>Cavalry: <span id="cavalryTroops">10</span></p>
+								<p>Artillery: <span id="artilleryTroops">10</span></p>
+							</div> -->
+							<button id='aggressiveStance' class="stance tooltip" tooltipdesc="More Might, Less Loot"
+								onclick="switchStance('aggressive')">Aggressive</button>
+							<button id="balancedStance" class="stance tooltip" tooltipdesc="A balanced stance"
+								onclick="switchStance('balanced')" disabled>Balanced</button>
+							<button id='carefulStance' class='stance tooltip' tooltipdesc="More Loot, Less Might"
+								onclick="switchStance('careful')">Careful</button>
+						</td>
+						<td class='tooltip' id='playerMight'>20</td>
+						<td style="color:red" id="chanceToWin">15%</td>
+						<td id="enemyMight">40</td>
+					</tr>
+					<tr>
+
+
+						<td rowspan="2" colspan="3">
+							<div id="arena"></div>
+						</td>
+
+					</tr>
+					<tr>
+						<td>
+							<button class='tooltip' tooltipdesc='Arraign your enemies before the bar of violence'
+								tooltipcost="Violence & Spears" id="startCombat">Fight</button>
+						</td>
+
+					</tr>
+					<tr>
+						<td><span id="combatResult"></span></td>
+						<td colspan="3" align="right">Each ball is ~<span id="approximateBall">1</span> Might</td>
+
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+
+	</div>
+
+	<!-- Tabs navigation -->
+	<div id="tabs">
+	</div>
+
+	<!-- TOOL -->
+	<!-- The button to trigger the form display -->
+	<!-- <button id="addResourceBtn" class="hidden">Add New Resource</button> -->
+
+	<!-- The form to input resource details -->
+	<div id="resourceForm" style="display: none;">
+		<label for="resourceName">Resource Name:</label>
+		<input type="text" id="resourceName">
+
+		<label for="resourceActiveText">Active Text:</label>
+		<input type="text" id="resourceActiveText">
+
+		<label for="resourceDefaultText">Default Text:</label>
+		<input type="text" id="resourceDefaultText">
+
+		<!-- ... Add other fields as needed ... -->
+		<label for="btnText">Button Text:</label>
+		<input type="text" id="btnText">
+
+		<label for="btnTooltipDesc">Tooltip Description:</label>
+		<input type="text" id="btnTooltipDesc">
+
+		<label for="btnTooltipCost">Tooltip Cost:</label>
+		<input type="text" id="btnTooltipCost">
+
+		<button onclick="addResource()">Add Resource</button>
+	</div>
+
+
+
+	<div id="dynamic-tooltip" class="dynamic-tooltip"></div>
+
+
+
+	<!-- <script type="application/json" id="resourcesData" src="resources.json"></script> -->
+	<!-- For the game -->
+	<!-- <script src="scripts/tools.js"></script>
+	<script src="scripts/json/resources.js"></script>
+	<script src="scripts/json/buttons.js"></script>
+	<script src="scripts/json/buildings.js"></script>
+	<script src="scripts/json/craftedResources.js"></script>
+	<script src="scripts/json/skills.js"></script>
+	<script src="scripts/json/ponder.js"></script>
+	<script src="scripts/json/perks.js"></script>
+
+	<script src="scripts/buildings.js"></script>
+	<script src="scripts/ponder.js"></script>
+	<script src="scripts/jobs.js"></script>
+	<script src="scripts/resources.js"></script>
+	<script src="scripts/perks.js"></script>
+	<script src="scripts/saving.js"></script>
+
+	<script src="scripts/main.js"></script> -->
+	<script src="dist/13_bundle.js"></script>
+	<script src="dist/main_bundle.js"></script>
+
+</body>
+
+</html>

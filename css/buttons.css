@@ -1,0 +1,62 @@
+button {
+    padding: 10px 20px;
+    cursor: pointer;
+    /* border: none; */
+    background-color: #444;
+    background-image: linear-gradient(#555, #444);
+    color: white;
+    outline: none;
+    display: block;
+    font-size: medium;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    width: 200px;
+    text-align: justify;
+}
+
+button:disabled {
+    cursor: default;
+}
+
+button.visible {
+    display: block;
+}
+
+button.gathering {
+    background-image: linear-gradient(#66a, #448);
+}
+
+.button-disabled {
+    color: #F58549;
+    background-image: linear-gradient(#444, #333);
+}
+
+button.cant-afford {
+    color: #f54949;
+    cursor: help;
+    background-image: linear-gradient(#544, #433);
+}
+
+button:hover {
+    /* background-color: #666; */
+    opacity: .9;
+}
+
+div.factory-button.hidden {
+    display: none;
+}
+
+div.factory-button {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.factory-button button {
+    width: fit-content;
+}
+
+.button-disabled:hover {
+    /* background-color: #866; */
+    opacity: .9;
+}

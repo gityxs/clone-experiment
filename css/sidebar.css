@@ -1,0 +1,123 @@
+#sidebar {
+    width: 350px;
+    height: 95%;
+    overflow-y: auto;
+    background-color: #bbb;
+    border-right: 1px solid #eee;
+    padding: 20px;
+    font-size: 16px;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+}
+
+
+#sidebar>#resources {
+    /* display: flex; */
+    /* flex-direction: column; */
+    flex: none;
+}
+
+/* #sidebar>#resources>* {
+    display: none;
+    order: 1000;
+} */
+
+
+
+#sidebar>#resources>.startVisible {
+    display: flex;
+    /* or whatever your desired default display value is */
+}
+
+#sidebar p {
+    size: 18px;
+    width: 100%;
+
+    margin: 0;
+    padding: 5px 0;
+}
+
+p.resource {
+    display: flex;
+    /* Enable flexbox on the paragraph */
+    justify-content: space-between;
+    /* Distribute items evenly */
+}
+
+#sidebar p.hidden {
+    display: none;
+}
+
+.toggle-button {
+    cursor: pointer;
+    /* Add more styles as needed */
+}
+
+/* Define styles for arrows */
+.arrow-down::before {
+    content: "⮟";
+    /* Unicode for arrow down */
+}
+
+.arrow-right::before {
+    content: "⮞";
+    /* Unicode for arrow right */
+}
+
+.resourceValue {
+    flex: 1;
+    /* border-left: 1px solid #bbb;
+    border-right: 1px solid #bbb;
+    border-bottom-width: 3px; */
+    /* Distribute width equally among children */
+    /* text-align: center; */
+    /* Center-align the text */
+}
+
+.resourceValue {
+    text-align: right;
+    /* Right-align the value */
+}
+
+.resourceRate {
+    margin-left: 30px;
+    width: 100px;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 20px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px #222;
+    background-color: #333;
+    border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #666;
+    border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+::-webkit-scrollbar-track-piece {
+    background-color: #333;
+}
+
+
+
+.resourceGroup {
+    margin-bottom: 10px;
+}
+
+.resourceGroup>button {
+    /* Styles for your group toggle buttons */
+}
