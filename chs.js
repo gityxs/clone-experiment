@@ -361,7 +361,7 @@ var cnItems = {
     "another": "另一个",
     "world.": "世界。",
     "You are in": "你现在位于",
-    "": "",
+    "You feel a strange, constructive urge to acquire sticks, herbs, axe": "你感到一种奇怪的、有建设性的冲动，想要获得木棍、草药和斧头",
     "": "",
     "": "",
     "": "",
